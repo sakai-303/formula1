@@ -2,20 +2,23 @@ import { PARTS, CATEGORIES, LAYERS, OVERVIEW } from '../data/parts.js';
 import { LIVERY_COLORS } from '../car/materials.js';
 
 const PRESET_LABELS = [
-  ['assembled', 'Assembled'],
-  ['shell', 'No bodywork'],
-  ['exploded', 'Exploded'],
+  ['assembled', '組立'],
+  ['shell', 'ボディワークなし'],
+  ['exploded', '分解'],
 ];
 
 const COMPOUNDS = [
-  ['Soft', '#e10600'],
-  ['Medium', '#ffd12e'],
-  ['Hard', '#f4f4f4'],
-  ['Inter', '#39b54a'],
-  ['Wet', '#0067ad'],
+  ['ソフト', '#e10600'],
+  ['ミディアム', '#ffd12e'],
+  ['ハード', '#f4f4f4'],
+  ['インター', '#39b54a'],
+  ['ウェット', '#0067ad'],
 ];
 
 const $ = (id) => document.getElementById(id);
+
+/** Normalise for search: full/half-width forms, case, and hiragana → katakana (so IME input matches before conversion). */
+const fold = (s) => s.normalize('NFKC').toLowerCase().replace(/[\u3041-\u3096]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60));
 
 export function initUI(h) {
   const { state } = h;
@@ -131,8 +134,8 @@ export function initUI(h) {
   const showPaint = () => {
     const [name, hex] = LIVERY_COLORS[pi];
     paint.querySelector('i').style.background = hex;
-    paint.title = `Paint: ${name}`;
-    paint.setAttribute('aria-label', `Paint colour: ${name}`);
+    paint.title = `塗装：${name}`;
+    paint.setAttribute('aria-label', `塗装色：${name}`);
   };
   showPaint();
   paint.addEventListener('click', () => {
@@ -187,8 +190,8 @@ export function initUI(h) {
     for (const [id, p] of entries) {
       const b = document.createElement('button');
       b.className = 'part-item';
-      b.dataset.search = `${p.name} ${g} ${CATEGORIES[p.cat].label} ${p.cat}`.toLowerCase();
-      b.innerHTML = `<span class="dot" style="background:${CATEGORIES[p.cat].color}"></span><span class="nm">${p.name}</span>${p.isNew ? '<span class="new">NEW</span>' : ''}<span class="cat">${p.cat}</span>`;
+      b.dataset.search = fold(`${p.name} ${g} ${CATEGORIES[p.cat].label} ${p.cat}`);
+      b.innerHTML = `<span class="dot" style="background:${CATEGORIES[p.cat].color}"></span><span class="nm">${p.name}</span>${p.isNew ? '<span class="new">新</span>' : ''}<span class="cat">${p.cat}</span>`;
       b.addEventListener('click', () => h.onPick(id));
       b.addEventListener('mouseenter', () => h.onHoverInfo(id));
       b.addEventListener('mouseleave', () => h.onHoverInfo(null));
@@ -197,7 +200,7 @@ export function initUI(h) {
     }
   }
   $('search').addEventListener('input', (e) => {
-    const q = e.target.value.trim().toLowerCase();
+    const q = fold(e.target.value.trim());
     for (const b of Object.values(items)) b.hidden = q && !b.dataset.search.includes(q);
     list.querySelectorAll('.group-title').forEach((t) => {
       let n = t.nextElementSibling;

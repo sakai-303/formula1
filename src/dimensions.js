@@ -49,39 +49,39 @@ export function createDimensions(parent) {
   // Overall width (rear tyres)
   const wy = 0.012;
   const wx = REAR_AXLE_X;
-  measure(V(wx, wy, -0.95), V(wx, wy, 0.95), V(1, 0, 0), '1900 mm', 'Max. overall width');
+  measure(V(wx, wy, -0.95), V(wx, wy, 0.95), V(1, 0, 0), '1900 mm', '最大全幅');
   line([V(wx, wy, 0.95), V(wx, REAR_WHEEL.cy, 0.95)], dash);
   line([V(wx, wy, -0.95), V(wx, REAR_WHEEL.cy, -0.95)], dash);
 
   // Wheelbase
   const bz = 1.15;
-  measure(V(REAR_AXLE_X, wy, bz), V(FRONT_AXLE_X, wy, bz), V(0, 0, 1), '3400 mm', 'Max. wheelbase');
+  measure(V(REAR_AXLE_X, wy, bz), V(FRONT_AXLE_X, wy, bz), V(0, 0, 1), '3400 mm', '最大ホイールベース');
   line([V(REAR_AXLE_X, wy, bz), V(REAR_AXLE_X, REAR_WHEEL.cy, REAR_WHEEL.z + 0.19)], dash);
   line([V(FRONT_AXLE_X, wy, bz), V(FRONT_AXLE_X, FRONT_WHEEL.cy, FRONT_WHEEL.z + 0.14)], dash);
 
   // Roll hoop reference height
   const hx = -0.31;
   const hz = -1.15;
-  measure(V(hx, REF_Y, hz), V(hx, ROLL_HOOP_TOP, hz), V(1, 0, 0), '968 mm', 'Roll-hoop structure above reference plane', V(0, 0.1, 0));
+  measure(V(hx, REF_Y, hz), V(hx, ROLL_HOOP_TOP, hz), V(1, 0, 0), '968 mm', '基準面からのロールフープ高さ', V(0, 0.1, 0));
   line([V(hx, ROLL_HOOP_TOP, hz), V(hx, ROLL_HOOP_TOP, 0)], dash);
   line([V(hx, REF_Y, hz), V(hx, REF_Y, -0.3)], dash);
 
   // Front wing span note
   const fy = 0.42;
-  measure(V(2.5, fy, -FW_HALF_SPAN), V(2.5, fy, FW_HALF_SPAN), V(1, 0, 0), 'Front wing', '100 mm narrower than 2025', V(0, 0.08, 0));
+  measure(V(2.5, fy, -FW_HALF_SPAN), V(2.5, fy, FW_HALF_SPAN), V(1, 0, 0), 'フロントウイング', '2025年より100 mm狭い', V(0, 0.08, 0));
 
   // Exhaust exit position
-  measure(V(REAR_AXLE_X, EXHAUST_EXIT.y + 0.12, 0), V(EXHAUST_EXIT.x, EXHAUST_EXIT.y + 0.12, 0), V(0, 1, 0), '390–400 mm', 'Tailpipe behind rear axle', V(-0.1, 0.1, 0));
+  measure(V(REAR_AXLE_X, EXHAUST_EXIT.y + 0.12, 0), V(EXHAUST_EXIT.x, EXHAUST_EXIT.y + 0.12, 0), V(0, 1, 0), '390〜400 mm', 'リアアクスルからテールパイプまで', V(-0.1, 0.1, 0));
   line([V(REAR_AXLE_X, EXHAUST_EXIT.y + 0.12, 0), V(REAR_AXLE_X, REAR_WHEEL.cy, 0)], dash);
   line([V(EXHAUST_EXIT.x, EXHAUST_EXIT.y + 0.12, 0), V(EXHAUST_EXIT.x, EXHAUST_EXIT.y, 0)], dash);
 
   // Tyre diameter
   const tx = FRONT_AXLE_X - FRONT_WHEEL.r - 0.06;
   const tz = FRONT_WHEEL.z + FRONT_WHEEL.w / 2;
-  measure(V(tx, 0.0, tz), V(tx, FRONT_WHEEL.r * 2, tz), V(1, 0, 0), '18″ rims', 'Tyres 25 mm (F) / 30 mm (R) narrower', V(-0.05, 0, 0.12));
+  measure(V(tx, 0.0, tz), V(tx, FRONT_WHEEL.r * 2, tz), V(1, 0, 0), '18インチリム', 'タイヤ幅は前25 mm／後30 mm縮小', V(-0.05, 0, 0.12));
 
   // Plank
-  label(V(0.4, REF_Y - 0.02, 0.3), 'Plank 10 mm', 'Min. 8 mm after wear');
+  label(V(0.4, REF_Y - 0.02, 0.3), 'プランク 10 mm', '摩耗後も最低8 mm');
 
   return {
     group,
