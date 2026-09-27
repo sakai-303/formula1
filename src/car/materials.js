@@ -222,11 +222,11 @@ function sidewallTextTexture() {
 // Plain, deep matte paint (undersides are bare carbon). The primary colour
 // defaults to dark red and can be swapped at runtime with setLiveryColor().
 export const LIVERY_COLORS = [
-  ['Red', '#4a0710'],
-  ['Blue', '#0e1f42'],
-  ['Green', '#10301f'],
-  ['Pink', '#55163a'],
-  ['Purple', '#2c1446'],
+  ['レッド', '#4a0710'],
+  ['ブルー', '#0e1f42'],
+  ['グリーン', '#10301f'],
+  ['ピンク', '#55163a'],
+  ['パープル', '#2c1446'],
 ];
 const LIVERY = { primary: LIVERY_COLORS[0][1], dark: '#0d0b0c' };
 

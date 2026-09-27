@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { CATEGORIES } from '../data/parts.js';
 
-const FREEDOM = ['None', 'Minimal', 'Limited', 'Substantial', 'High'];
+const FREEDOM = ['なし', '最小限', '限定的', '高い', '非常に高い'];
 const NS = 'http://www.w3.org/2000/svg';
 
 /** Vertical screen span between the top and bottom toolbars. */
@@ -93,15 +93,15 @@ export class Callout {
     this.card.innerHTML = `
       <div class="cat-row">
         <span class="cat"><i style="background:${cat.color}"></i>${esc(cat.label)}</span>
-        ${pinned ? '<button class="close" aria-label="Close"></button>' : '<span class="pin">Click to pin</span>'}
+        ${pinned ? '<button class="close" aria-label="閉じる"></button>' : '<span class="pin">クリックで固定</span>'}
       </div>
       <h3>${esc(info.name)}</h3>
       <p>${esc(info.summary)}</p>
-      <p><b>Who makes it:</b> ${esc(cat.who)}</p>
-      <div class="freedom">Team design freedom <div class="bars">${bars}</div><em>${FREEDOM[info.freedom]}</em></div>
+      <p><b>誰が作るか：</b>${esc(cat.who)}</p>
+      <div class="freedom">チームの設計自由度 <div class="bars">${bars}</div><em>${FREEDOM[info.freedom]}</em></div>
       <ul>${info.rules.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
-      ${info.numbers?.length ? `<p>${info.numbers.map(([k, v]) => `<b>${esc(k)}:</b> ${esc(v)}`).join(' · ')}</p>` : ''}
-      ${info.isNew ? `<p><b>New for 2026:</b> ${esc(info.isNew)}</p>` : ''}
+      ${info.numbers?.length ? `<p>${info.numbers.map(([k, v]) => `<b>${esc(k)}：</b>${esc(v)}`).join(' · ')}</p>` : ''}
+      ${info.isNew ? `<p><b>2026年の変更点：</b>${esc(info.isNew)}</p>` : ''}
     `;
     this.card.querySelector('.close')?.addEventListener('click', () => this.onClose?.());
   }
